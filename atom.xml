@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MyBlog</title>
+  
+  
+  <link href="https://million-2002.github.io/million-2002.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://million-2002.github.io/million-2002.github.io/"/>
+  <updated>2021-10-22T10:51:35.105Z</updated>
+  <id>https://million-2002.github.io/million-2002.github.io/</id>
+  
+  <author>
+    <name>Million</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>My new Post</title>
+    <link href="https://million-2002.github.io/million-2002.github.io/2021/10/22/My-new-Post/"/>
+    <id>https://million-2002.github.io/million-2002.github.io/2021/10/22/My-new-Post/</id>
+    <published>2021-10-22T10:44:23.000Z</published>
+    <updated>2021-10-22T10:51:35.105Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="4-对象的组合"><a href="#4-对象的组合" class="headerlink" title="4.对象的组合"></a>4.对象的组合</h2><p>设计线程安全的类：</p><ul><li>找出构成对象状态的所有变量（变量组成对象状态的n元组）</li><li>找出约束状态的不变性条件</li><li>建立对象状态的并发管理策略</li></ul><h4 id="收集同步需求"><a href="#收集同步需求" class="headerlink" title="收集同步需求"></a>收集同步需求</h4><p>确保线程的不变性不会在并发访问时被破坏，需要对状态进行判断。后验条件判断状态迁移是否有效，不变性条件判断状态是否有效，执行前也会有先验条件。</p><h3 id="实例封闭"><a href="#实例封闭" class="headerlink" title="实例封闭"></a>实例封闭</h3><p>将数据封装在对象内部，可以将数据的访问限制在那个对象的方法上，从而确保数据访问时总能有正确的锁。<br>在Java平台的类库中还有很多线程封闭的示例，其中有些类的唯一用途就是将非线程安全的类转化为线程安全的类。一些基本的容器类例如ArrayList不是线程安全的，但类库提供了包装器工厂方法，<strong>例如Collections.synchronizedList及其类似方法，使得这些非线程安全的类可以在多线程环境中安全地使用。这些工厂方法通过”装饰器Decorator”模式将容器封装在一个同步的容器对象上，而包装器能将接口中的每个方法都实现为同步方法，并将调用请求转发到底层的容器对象上。只要包装器对象拥有对底层容器对象的唯一引用（即把底层容器对象封闭在包装器中），那么它就是线程安全的。在这引起方法的Javadoc中指出，对底层容器对象的所有访问必须通过包装器来进行。<br>封闭机制更易于构造线程安全的类，因为当封闭类的状态时，在分析类的线程安全性时就无须检查整个程序。</strong></p><h3 id="监视器模式"><a href="#监视器模式" class="headerlink" title="监视器模式"></a>监视器模式</h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;4-对象的组合&quot;&gt;&lt;a href=&quot;#4-对象的组合&quot; class=&quot;headerlink&quot; title=&quot;4.对象的组合&quot;&gt;&lt;/a&gt;4.对象的组合&lt;/h2&gt;&lt;p&gt;设计线程安全的类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;找出构成对象状态的所有变量（变量组成对象状态的n元组）</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
