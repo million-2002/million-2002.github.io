@@ -94,7 +94,7 @@
 <h4 id="收集同步需求"><a href="#收集同步需求" class="headerlink" title="收集同步需求"></a>收集同步需求</h4><p>确保线程的不变性不会在并发访问时被破坏，需要对状态进行判断。后验条件判断状态迁移是否有效，不变性条件判断状态是否有效，执行前也会有先验条件。</p>
 <h3 id="实例封闭"><a href="#实例封闭" class="headerlink" title="实例封闭"></a>实例封闭</h3><p>将数据封装在对象内部，可以将数据的访问限制在那个对象的方法上，从而确保数据访问时总能有正确的锁。<br>在Java平台的类库中还有很多线程封闭的示例，其中有些类的唯一用途就是将非线程安全的类转化为线程安全的类。一些基本的容器类例如ArrayList不是线程安全的，但类库提供了包装器工厂方法，<strong>例如Collections.synchronizedList及其类似方法，使得这些非线程安全的类可以在多线程环境中安全地使用。这些工厂方法通过”装饰器Decorator”模式将容器封装在一个同步的容器对象上，而包装器能将接口中的每个方法都实现为同步方法，并将调用请求转发到底层的容器对象上。只要包装器对象拥有对底层容器对象的唯一引用（即把底层容器对象封闭在包装器中），那么它就是线程安全的。在这引起方法的Javadoc中指出，对底层容器对象的所有访问必须通过包装器来进行。<br>封闭机制更易于构造线程安全的类，因为当封闭类的状态时，在分析类的线程安全性时就无须检查整个程序。</strong></p>
 <h3 id="监视器模式"><a href="#监视器模式" class="headerlink" title="监视器模式"></a>监视器模式</h3></p>
-      <div class="post-button"><a class="btn" href="/million-2002.github.io/2021/10/22/My-new-Post/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/million-2002.github.io/2021/10/22/My-new-Post/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
 
@@ -134,18 +134,18 @@
   </div>
   <nav class="menu-container">
   <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
-    <li><a href="/million-2002.github.io/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/million-2002.github.io/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
     
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>页面</span>
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
         <ul>
           <li><a href="/million-2002.github.io/guestbook/">Guestbook</a></li>
         <li><a href="/million-2002.github.io/about/">About</a></li>
         </ul>
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>友链</span>
+      <i class="fa fa-link fa-fw"></i>Friends</span>
         <ul>
           <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
         </ul>
