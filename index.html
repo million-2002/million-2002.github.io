@@ -86,10 +86,10 @@
 <div id="lx-aside" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/cover.min.jpeg)">
   <div class="overlay">
   <div class="featured">
-    <div class="avatar"><a href="/"><img src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/avatar.min.jpeg"></a></div>
+    <div class="avatar"><a href="/"><img src="http://image109.360doc.com/DownloadImg/2020/07/0617/194741515_9_20200706054121224"></a></div>
     <span>Million</span>
     <h1>Million's Blog</h1>
-    <span>Million's Blog</span>
+    <span>一个菜鸟的博客</span>
     <div class="social-links">
     <a href="https://github.com/million-2002" target="_blank"><i class="fa fa-github fa-fw"></i></a>
 </div>
@@ -122,7 +122,7 @@
 <h2 id="实时时钟"><a href="#实时时钟" class="headerlink" title="实时时钟"></a>实时时钟</h2><p>实时时钟（RTC）在系统关闭后可以通过主板上的微型电池提供的电力确保系统的计时，内核读取RTC来初始化墙上时间，存放在xtime变量中。</p>
 <h3 id="系统定时器"><a href="#系统定时器" class="headerlink" title="系统定时器"></a>系统定时器</h3><p>可编程中断时钟（PIT）在内核定时机制中很重要，采用周期性触发中断机制，有些体系结构利用衰减测量器或电子晶振分频实现</p>
 <h2 id="11-5-时钟中断处理程序"><a href="#11-5-时钟中断处理程序" class="headerlink" title="11.5 时钟中断处理程序"></a>11.5 时钟中断处理程序</h2></p>
-      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/11-%E5%AE%9A%E6%97%B6%E5%99%A8%E5%92%8C%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/11-%E5%AE%9A%E6%97%B6%E5%99%A8%E5%92%8C%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -138,7 +138,7 @@
 <h2 id="10-6-互斥体"><a href="#10-6-互斥体" class="headerlink" title="10.6 互斥体"></a>10.6 互斥体</h2><p>相比信号量，优先用mutex<br><strong>mutex</strong>指可睡眠的强制互斥锁，类似于信号量，只是接口更简单。<br>只能在同一上下文中对它上锁和解锁，不可递归的上锁和解锁，不可被拷贝，手动或重复初始化。</p>
 <h2 id="10-9-顺序锁"><a href="#10-9-顺序锁" class="headerlink" title="10.9 顺序锁"></a>10.9 顺序锁</h2><p><strong>seq锁</strong> ：主要依靠一个序列计数器，写入操作会导致值被增加，读前和读后查看此锁的数据有没有发生变化就能知道读之前和之后有没有被写入过。<br>当数据存在很多读者，很少写者，希望写者优先于读者，数据很简单时使用。</p>
 </p>
-      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/10-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/10-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -156,7 +156,7 @@
 </ul>
 <h2 id="9-4-征用和扩展性"><a href="#9-4-征用和扩展性" class="headerlink" title="9.4 征用和扩展性"></a>9.4 征用和扩展性</h2><p><strong>锁的征用</strong>：锁正在被占用时，其他程序试图获得它<br><strong>扩展性</strong>：系统可扩展性的量度，只要是可被计数的设备都有扩展性，但性能和个数不一定成正比。<br>提高扩展性可以在大型SMP系统，处理能力强大的机器上获得良好效果，比如用一个锁控制一个链表，在很多进程访问它的时候就会遇到扩展性瓶颈，如果用很多锁控制此链表的每个节点就会好很多；但是在访问进程少的情况下，锁的粒度太细就会造成性能损耗。</p>
 </p>
-      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/9-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E4%BB%8B%E7%BB%8D/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/9-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E4%BB%8B%E7%BB%8D/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -173,7 +173,7 @@
 <h2 id="8-5-下半部机制的选择"><a href="#8-5-下半部机制的选择" class="headerlink" title="8.5 下半部机制的选择"></a>8.5 下半部机制的选择</h2><p>1.软中断：需要采取一些步骤保证共享数据安全，如果完全使用单处理器变量，那么软中断就很好<br>2.tasklet：本质上就是用软中断实现的，实现起来更简单，不能并发运行，保证了资源安全，性能比软中断差一点<br>3.工作队列：如果需要睡眠，就用工作队列，此机制实现简单，开销也最大，因为涉及到上下文切换和内核线程</p>
 <h2 id="8-7-禁止下半部"><a href="#8-7-禁止下半部" class="headerlink" title="8.7 禁止下半部"></a>8.7 禁止下半部</h2><p>为了保护内存资源可能要先得到一个锁然后禁止下半部执行</p>
 </p>
-      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/8-%E4%B8%8B%E5%8D%8A%E9%83%A8%E5%92%8C%E6%8E%A8%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%B7%A5%E4%BD%9C/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/8-%E4%B8%8B%E5%8D%8A%E9%83%A8%E5%92%8C%E6%8E%A8%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%B7%A5%E4%BD%9C/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -187,7 +187,7 @@
 <h2 id="7-6-中断上下文"><a href="#7-6-中断上下文" class="headerlink" title="7.6 中断上下文"></a>7.6 中断上下文</h2><p><strong>进程上下文：</strong>进程已执行过的字段/数据（存放在堆栈中），进程执行活动全过程的静态描述<br>中断上下文尽量节约时间和内存栈</p>
 <h2 id="7-9-中断控制"><a href="#7-9-中断控制" class="headerlink" title="7.9 中断控制"></a>7.9 中断控制</h2><p>可禁止/激活整个处理器上所有的中断函数，或只禁止某一条中断线</p>
 </p>
-      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/7-%E4%B8%AD%E6%96%AD%E5%92%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/7-%E4%B8%AD%E6%96%AD%E5%92%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -216,7 +216,7 @@ D<span class="token arrow operator">--></span>E<span class="token text string">[
 <pre class="line-numbers language-#define" data-language="#define"><div class="caption"><span>NR_open   5</span></div><code class="language-#define">_syscall3(long, open, const char*,filename,int,flags,int,mode)
 第一二个参数对应着返回类型和系统调用名字<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </p>
-      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/5-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/5-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -234,7 +234,7 @@ D<span class="token arrow operator">--></span>E<span class="token text string">[
 <h2 id="4-8与调度相关的系统调用"><a href="#4-8与调度相关的系统调用" class="headerlink" title="4.8与调度相关的系统调用"></a>4.8与调度相关的系统调用</h2><h3 id="4-8-2处理器绑定"><a href="#4-8-2处理器绑定" class="headerlink" title="4.8.2处理器绑定"></a>4.8.2处理器绑定</h3><p>可以通过设置<strong>位掩码</strong>（保存在进程task_struct标志中）指定某进程只能在哪些cpu上运行，每一位标志着一个处理器，子进程继承了父进程的位掩码</p>
 <h3 id="4-8-3-放弃处理器时间"><a href="#4-8-3-放弃处理器时间" class="headerlink" title="4.8.3 放弃处理器时间"></a>4.8.3 放弃处理器时间</h3><p>sched_yield()系统调用可把某进程调为最小优先级，并放入过期队列，确保其一段时间不会被执行</p>
 </p>
-      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/4-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/4-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -250,7 +250,7 @@ D<span class="token arrow operator">--></span>E<span class="token text string">[
 <h3 id="内核线程"><a href="#内核线程" class="headerlink" title="内核线程"></a>内核线程</h3><p>在内核后台运行，跟用户空间没有交集，也没有被分配进程空间</p>
 <h2 id="3-5-进程终结"><a href="#3-5-进程终结" class="headerlink" title="3.5 进程终结"></a>3.5 进程终结</h2><p>终结时释放所有资源，并把其告诉父进程：记账信息，文件描述符，文件系统的引用计数，切换到新进程。。。<br>如果子进程正在执行时父进程退出了，它就会僵死在那里永远不会被释放，变成孤儿；为了防止，要给它和它的兄弟们找养父进程，如果它所在的线程组没有其他进程，就把它交给init进程；找到它的兄弟，只需遍历子进程链表；<br>init会调用wait（）清除所有的僵死进程；</p>
 </p>
-      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/3-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/3-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -266,7 +266,7 @@ D<span class="token arrow operator">--></span>E<span class="token text string">[
 <h4 id="收集同步需求"><a href="#收集同步需求" class="headerlink" title="收集同步需求"></a>收集同步需求</h4><p>确保线程的不变性不会在并发访问时被破坏，需要对状态进行判断。后验条件判断状态迁移是否有效，不变性条件判断状态是否有效，执行前也会有先验条件。</p>
 <h3 id="实例封闭"><a href="#实例封闭" class="headerlink" title="实例封闭"></a>实例封闭</h3><p>将数据封装在对象内部，可以将数据的访问限制在那个对象的方法上，从而确保数据访问时总能有正确的锁。<br>在Java平台的类库中还有很多线程封闭的示例，其中有些类的唯一用途就是将非线程安全的类转化为线程安全的类。一些基本的容器类例如ArrayList不是线程安全的，但类库提供了包装器工厂方法，<strong>例如Collections.synchronizedList及其类似方法，使得这些非线程安全的类可以在多线程环境中安全地使用。这些工厂方法通过”装饰器Decorator”模式将容器封装在一个同步的容器对象上，而包装器能将接口中的每个方法都实现为同步方法，并将调用请求转发到底层的容器对象上。只要包装器对象拥有对底层容器对象的唯一引用（即把底层容器对象封闭在包装器中），那么它就是线程安全的。在这引起方法的Javadoc中指出，对底层容器对象的所有访问必须通过包装器来进行。<br>封闭机制更易于构造线程安全的类，因为当封闭类的状态时，在分析类的线程安全性时就无须检查整个程序。</strong></p>
 <h3 id="监视器模式"><a href="#监视器模式" class="headerlink" title="监视器模式"></a>监视器模式</h3></p>
-      <div class="post-button"><a class="btn" href="/2021/10/24/java%E5%B9%B6%E5%8F%91/4-%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/java%E5%B9%B6%E5%8F%91/4-%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -379,7 +379,7 @@ D<span class="token arrow operator">--></span>E<span class="token text string">[
 </ul>
 <p>事实不可变对象:从技术上来看可变,但发布后不会改变,视为不可变对象即可,要通过安全方式发布<br>可变对象:必须通过安全方式来发布,并且一定要是线程安全且由锁保护</p>
 </p>
-      <div class="post-button"><a class="btn" href="/2021/10/24/java%E5%B9%B6%E5%8F%91/3.%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/java%E5%B9%B6%E5%8F%91/3.%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
 
@@ -407,33 +407,33 @@ D<span class="token arrow operator">--></span>E<span class="token text string">[
       <div class="col">
         <div class="row for-pic">
           <div class="profile-pic">
-            <a href="/"><img src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/avatar.min.jpeg" alt="Million"/></a>
+            <a href="/"><img src="http://image109.360doc.com/DownloadImg/2020/07/0617/194741515_9_20200706054121224" alt="Million"/></a>
           </div>
         </div>
         <div class="row for-name">
           <p>Million</p>
-          <span class="tagline">Hello, World!</span>
+          <span class="tagline"></span>
         </div>
       </div>
     </span>
   </div>
   <nav class="menu-container">
   <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-th-list fa-fw"></i>分类</span>
+      <i class="fa fa-th-list fa-fw"></i>Categories</span>
         <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></li></ul>
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>页面</span>
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
         <ul>
           <li><a href="/guestbook/">Guestbook</a></li>
         <li><a href="/about/">About</a></li>
         </ul>
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>友链</span>
+      <i class="fa fa-link fa-fw"></i>Friends</span>
         <ul>
           <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
         </ul>
