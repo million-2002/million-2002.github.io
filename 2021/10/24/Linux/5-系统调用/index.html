@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>5.系统调用 | Million&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Million">
+  <meta name="keywords" content="">
+  <meta name="description" content="一个菜鸟的博客">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'hexo-theme-lx',
+    version: '0.4.0',
+    localsearch:{
+      "enable": true,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": false,
+      "preload": false
+      },
+    path: 'search.xml'
+  };
+</script>
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "greenish",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Million's Blog" type="application/atom+xml">
+</head>
+<body>
+<div class="single">
+<a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i></a>
+<div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Search..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+<div id="page">
+<div id="lx-aside" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
+  <div class="overlay">
+  <div class="page-title">
+    <div class="avatar"><a href="/"><img src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/avatar.min.jpeg"></a></div>
+    <span>2021-10-24</span>
+    <h2>5.系统调用</h2>
+    
+    <div class="social-links">
+    <a href="https://github.com/million-2002" target="_blank"><i class="fa fa-github fa-fw"></i></a>
+</div></div>
+</div>
+</div>
+
+<div id="lx-main-content">
+  <div class="lx-post">
+    <div class="lx-entry padding">
+      <div>
+        <h1 id=""><a href="#" class="headerlink" title=""></a></h1><pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> LR
+A<span class="token text string">[应用程序]</span><span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span><span class="token label property">调用</span><span class="token arrow operator">--></span></span>B<span class="token text string">[库函数]</span>
+B<span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span><span class="token label property">调用</span><span class="token arrow operator">--></span></span>C<span class="token text string">[系统调用]</span>
+C<span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span><span class="token label property">指挥</span><span class="token arrow operator">--></span></span>D<span class="token text string">[操作系统]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>POSIX</strong>是一套系统调用API规范，应用于LINUX，UNIX,macOS</p>
+<h2 id="5-3系统调用"><a href="#5-3系统调用" class="headerlink" title="5.3系统调用"></a>5.3系统调用</h2><p>系统调用会通过一个long类型返回值来表示成功或者错误，0为成功，负值是错误，错误码被保存在errno全局变量中。系统调用限定词为<strong>asmlinkage</strong>，为了兼容32位和64位，用户空间返回值为int，内核空间为long，另外系统调用和内核命名规则也不一样</p>
+<h3 id="5-3-1-系统调用号"><a href="#5-3-1-系统调用号" class="headerlink" title="5.3.1 系统调用号"></a>5.3.1 系统调用号</h3><p>每个系统调用都有一个系统调用号，此号不能轻易改变，删除一个号之后，用<strong>‘未实现系统调用函数’：sys_ni_syscall()<strong>填补空缺，该函数返回</strong>-ENOSYS</strong>，这些号被存在系统调用表里</p>
+<h2 id="系统调用处理程序"><a href="#系统调用处理程序" class="headerlink" title="系统调用处理程序"></a>系统调用处理程序</h2><p>用户空间函数不可直接访问内核空间，但可以间接通知内核，使内核陷入内核态，使用软中断：<strong>system_call()<strong>实现内核陷入。<br>系统调用把</strong>系统调用号</strong>和<strong>参数</strong>分别通过<strong>eax</strong>和其他五个寄存器传给内核</p>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TB
+A<span class="token text string">[用户空间函数]</span><span class="token arrow operator">--></span>B<span class="token text string">[系统调用]</span>
+B<span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span><span class="token label property">触发软中断</span><span class="token arrow operator">--></span></span>C<span class="token text string">[system_call函数检查系统调用号是否小于NR_syscalls值]</span>
+C<span class="token arrow operator">--></span>D<span class="token text string">[函数陷入内核空间检查参数权限合法性]</span>
+D<span class="token arrow operator">--></span>E<span class="token text string">[系统调用号和参数通过寄存器传入内核]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="参数验证"><a href="#参数验证" class="headerlink" title="参数验证"></a>参数验证</h3><p><strong>系统调用必须检查参数的合法性</strong>，不能传入访问不到的地址，比如：其他进程空间的，内核空间的，内存的只读只写。。。访问限制<br><strong>权限的合法性</strong>通过suser（）检查是否为超级用户，capable（）检查对资源操作的权能</p>
+<h2 id="系统调用上下文"><a href="#系统调用上下文" class="headerlink" title="系统调用上下文"></a>系统调用上下文</h2><h3 id="绑定系统调用"><a href="#绑定系统调用" class="headerlink" title="绑定系统调用"></a>绑定系统调用</h3><p>在entry.s文件里的调用表里添加一个表项，在**&lt;asm/unisted&gt;<strong>设置系统调用号，系统调用要被编译进内核映像</strong>kernel/**里</p>
+<h3 id="用户访问系统调用"><a href="#用户访问系统调用" class="headerlink" title="用户访问系统调用"></a>用户访问系统调用</h3><p>用户可通过一组linux宏访问系统调用，它会设置好寄存器并调用陷入指令,<br>宏的形式为：</p>
+<pre class="line-numbers language-#define" data-language="#define"><div class="caption"><span>NR_open   5</span></div><code class="language-#define">_syscall3(long, open, const char*,filename,int,flags,int,mode)
+第一二个参数对应着返回类型和系统调用名字<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lx-navigation">
+	<div class="lx-cover prev lx-cover-sm" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/footer-l.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2021/10/24/Linux/7-%E4%B8%AD%E6%96%AD%E5%92%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Next</span>
+						<h3>7.中断和中断处理</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+        <div class="lx-cover next lx-cover-sm" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/footer-r.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2021/10/24/Linux/4-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Prev</span>
+						<h3>4.进程调度</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</div>
+<div class="comment"><div id="comments"></div></div>
+<footer>
+  <div>
+  Copyright &copy; 2021.<a href="/">Million's Blog</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button> 
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/avatar.min.jpeg" alt="Million"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>Million</p>
+          <span class="tagline">Hello, World!</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-th-list fa-fw"></i>分类</span>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></li></ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>页面</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>友链</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        </ul>
+    </li>
+  </ul>
+  </nav>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/js/local.search.min.js"></script>
+
+
+</body>
+</html>

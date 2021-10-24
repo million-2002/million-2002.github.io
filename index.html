@@ -15,13 +15,13 @@
     theme: 'hexo-theme-lx',
     version: '0.4.0',
     localsearch:{
-      "enable": false,
+      "enable": true,
       "trigger": "auto",
       "top_n_per_article": 1,
       "unescape": false,
       "preload": false
       },
-    path: 'null'
+    path: 'search.xml'
   };
 </script>
 
@@ -65,6 +65,23 @@
 </head>
 <body>
 <div id="page">
+<a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i></a>
+<div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Search..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
 
 <div id="lx-aside" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/cover.min.jpeg)">
   <div class="overlay">
@@ -73,7 +90,9 @@
     <span>Million</span>
     <h1>Million's Blog</h1>
     <span>Million's Blog</span>
-    
+    <div class="social-links">
+    <a href="https://github.com/million-2002" target="_blank"><i class="fa fa-github fa-fw"></i></a>
+</div>
   </div>
   </div>
 </div>
@@ -83,9 +102,162 @@
 
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2021/10/22/My-new-Post/">My new Post</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-22</span>
-      <p><h2 id="4-对象的组合"><a href="#4-对象的组合" class="headerlink" title="4.对象的组合"></a>4.对象的组合</h2><p>设计线程安全的类：</p>
+      <h2 class="title"><a href="/2021/10/24/Linux/11-%E5%AE%9A%E6%97%B6%E5%99%A8%E5%92%8C%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/">11.定时器和时间管理</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-24 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/Linux/">Linux</a></span>
+      <p><h2 id="内核中的时间概念"><a href="#内核中的时间概念" class="headerlink" title="内核中的时间概念"></a>内核中的时间概念</h2><p>系统定时器被用来计算流逝的时间，系统定时器以某种频率自行触发（<strong>击中/射中</strong>）时钟中断，该频率可以编程修改，叫做<strong>节拍率</strong><br><strong>节拍</strong>是两次中断间隔的时间，为<strong>1/节拍率</strong>秒，<strong>墙上时间</strong>（实际时间）<br><strong>时间中断周期中执行的操作</strong>：</p>
+<ul>
+<li>更新系统运行时间</li>
+<li>在SMP系统上，均衡调度处理程序各处理器上的运行队列负载</li>
+<li>检查当前进程是否用尽了自己的时间片</li>
+<li>更新资源消耗和处理器时间的统计值</li>
+</ul>
+<h2 id="理想的HZ值"><a href="#理想的HZ值" class="headerlink" title="理想的HZ值"></a>理想的HZ值</h2><p>不同体系结构拥有默认节拍率，提高节拍率时：</p>
+<ul>
+<li>时钟中断更加频繁</li>
+<li>提高时钟中断解析度</li>
+<li>时间驱动事件的精度提高</li>
+<li>提高系统负担，频繁陷入时钟中断<br><strong>无节拍的OS</strong>：如果一段时间内无事可做，就延长时钟中断频率，这样可以减少系统损失的能耗</li>
+</ul>
+<h2 id="jiffies"><a href="#jiffies" class="headerlink" title="jiffies"></a>jiffies</h2><p>这个全局变量用来记录系统启动以来产生的节拍的总数，<strong>unsigned long</strong>类型，64位的jiffies变量永远不可能溢出，因此一般只取变量的后32位，<strong>jiffies回绕</strong>是指变量溢出后会自动回到0值</p>
+<h2 id="实时时钟"><a href="#实时时钟" class="headerlink" title="实时时钟"></a>实时时钟</h2><p>实时时钟（RTC）在系统关闭后可以通过主板上的微型电池提供的电力确保系统的计时，内核读取RTC来初始化墙上时间，存放在xtime变量中。</p>
+<h3 id="系统定时器"><a href="#系统定时器" class="headerlink" title="系统定时器"></a>系统定时器</h3><p>可编程中断时钟（PIT）在内核定时机制中很重要，采用周期性触发中断机制，有些体系结构利用衰减测量器或电子晶振分频实现</p>
+<h2 id="11-5-时钟中断处理程序"><a href="#11-5-时钟中断处理程序" class="headerlink" title="11.5 时钟中断处理程序"></a>11.5 时钟中断处理程序</h2></p>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/11-%E5%AE%9A%E6%97%B6%E5%99%A8%E5%92%8C%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2021/10/24/Linux/10-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95/">10.内核同步方法</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-24 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/Linux/">Linux</a></span>
+      <p><h3 id="原子整数操作"><a href="#原子整数操作" class="headerlink" title="原子整数操作"></a>原子整数操作</h3><p><strong>SPARC体系结构</strong>是啥？？<br>原子操作就是不可被分割的操作，原子函数只接受一个特殊的数据类型，叫做<strong>atomic_c</strong>,这种类型可以屏蔽不同体系结构上数据的差异，也可以确保编译器不对相应的值进行访问优化。<br>内联函数是啥？</p>
+<h2 id="10-2-自旋锁"><a href="#10-2-自旋锁" class="headerlink" title="10.2 自旋锁"></a>10.2 自旋锁</h2><p>锁的出现是因为原子操作并不能满足在多个复杂函数共享数据的情况下安全。<br>linux内核主要是自旋锁，它最多只能被一个可执行线程持有，并且征用时，线程不能睡眠，必须进行忙等待。由于从睡眠中唤醒线程会导致开销，所以往往是短期占有锁/禁止睡眠时才需要自旋锁<br><strong>要在获取锁之前禁止本地中断，因为中断处理程序会试图打断内核进程而陷入忙等待，同时锁持有者又挂起，就陷入了死锁</strong><br>锁的是数据而不是代码</p>
+<h3 id="自旋锁和下半部"><a href="#自旋锁和下半部" class="headerlink" title="自旋锁和下半部"></a>自旋锁和下半部</h3><p>同类的tasklet不可能同时运行，同一个处理器上不可能相互抢占；而软中断会在不同处理器上运行，因此需要自旋锁，同一个处理器上软中断不可能被另外的软中断抢占，不需要自旋锁。<br>大量读者会使写者处于饥饿状态</p>
+<h2 id="10-3-读—写自旋锁"><a href="#10-3-读—写自旋锁" class="headerlink" title="10.3 读—写自旋锁"></a>10.3 读—写自旋锁</h2><p>又称（共享/排斥锁；并发/排斥锁），锁可被多个读任务持有，一个写任务持有，读任务可以并发</p>
+<h2 id="10-4-信号量"><a href="#10-4-信号量" class="headerlink" title="10.4 信号量"></a>10.4 信号量</h2><p>信号量：征用信号量的进程会被加入一个睡眠队列。<br>它适用于锁被长时间使用的情况，短时间持有的锁，中断上下文中都不可用。</p>
+<h3 id="计数信号量和二值信号量"><a href="#计数信号量和二值信号量" class="headerlink" title="计数信号量和二值信号量"></a>计数信号量和二值信号量</h3><p>计数信号量：可以记录持有者数量，允许任意数量的锁持有者<br>二值信号量：锁持有者只能是0，1<br><strong>读—写信号量</strong>：<strong>downgrade_write（）方法</strong>动态把写锁转换为读锁</p>
+<h2 id="10-6-互斥体"><a href="#10-6-互斥体" class="headerlink" title="10.6 互斥体"></a>10.6 互斥体</h2><p>相比信号量，优先用mutex<br><strong>mutex</strong>指可睡眠的强制互斥锁，类似于信号量，只是接口更简单。<br>只能在同一上下文中对它上锁和解锁，不可递归的上锁和解锁，不可被拷贝，手动或重复初始化。</p>
+<h2 id="10-9-顺序锁"><a href="#10-9-顺序锁" class="headerlink" title="10.9 顺序锁"></a>10.9 顺序锁</h2><p><strong>seq锁</strong> ：主要依靠一个序列计数器，写入操作会导致值被增加，读前和读后查看此锁的数据有没有发生变化就能知道读之前和之后有没有被写入过。<br>当数据存在很多读者，很少写者，希望写者优先于读者，数据很简单时使用。</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/10-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2021/10/24/Linux/9-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E4%BB%8B%E7%BB%8D/">9.内核同步介绍</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-24 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/Linux/">Linux</a></span>
+      <p><h2 id="临界区和竞争条件"><a href="#临界区和竞争条件" class="headerlink" title="临界区和竞争条件"></a>临界区和竞争条件</h2><p>临界区就是共享数据的代码段，访问临界区时代码不可被打断。</p>
+<h3 id="造成并发执行的原因"><a href="#造成并发执行的原因" class="headerlink" title="造成并发执行的原因"></a>造成并发执行的原因</h3><p>由于内核的调度程序，用户进程会在运行时被其他进程抢占，造成伪并发；<br><strong>内核中造成并发执行的原因：</strong></p>
+<ul>
+<li>中断：中断可在任何时刻打断当前代码</li>
+<li>软中断和tackest</li>
+<li>内核抢占</li>
+<li>睡眠和与用户空间的同步：内核进程可能会睡眠导致调度一个新的用户程序运行</li>
+<li>对称多处理：进程分别运行在有多个处理器的系统会造成真并发。<br><strong>SMP安全代码</strong>：对称多处理机器中能避免并发<br><strong>抢占安全代码</strong>：内核抢占时能避免并发</li>
+</ul>
+<h2 id="9-4-征用和扩展性"><a href="#9-4-征用和扩展性" class="headerlink" title="9.4 征用和扩展性"></a>9.4 征用和扩展性</h2><p><strong>锁的征用</strong>：锁正在被占用时，其他程序试图获得它<br><strong>扩展性</strong>：系统可扩展性的量度，只要是可被计数的设备都有扩展性，但性能和个数不一定成正比。<br>提高扩展性可以在大型SMP系统，处理能力强大的机器上获得良好效果，比如用一个锁控制一个链表，在很多进程访问它的时候就会遇到扩展性瓶颈，如果用很多锁控制此链表的每个节点就会好很多；但是在访问进程少的情况下，锁的粒度太细就会造成性能损耗。</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/9-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E4%BB%8B%E7%BB%8D/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2021/10/24/Linux/8-%E4%B8%8B%E5%8D%8A%E9%83%A8%E5%92%8C%E6%8E%A8%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%B7%A5%E4%BD%9C/">8.下半部和推后执行的工作</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-24 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/Linux/">Linux</a></span>
+      <p><p><strong>下半部机制</strong>：内核中所有将工作推迟的机制都叫下半部机制<br>1.中断处理程序以<strong>异步</strong>方式执行，并可能打断其他代码<br>2.不能消耗太长时间<br>3.中断处理不在进程上下文中运行，所以不能阻塞<br>所以一般将<strong>时间敏感的</strong>，<strong>操作硬件的</strong>，<strong>不可被中断的</strong>程序放在（中断处理程序）上半部中</p>
+<h2 id="下半部的重要性"><a href="#下半部的重要性" class="headerlink" title="下半部的重要性"></a>下半部的重要性</h2><p>为了缩短中断处理程序的响应时间及其他程序被屏蔽的时间，如果系统不太繁忙，一般上半部返回时就立即执行下半部</p>
+<h3 id="8-1-2-下半部的环境"><a href="#8-1-2-下半部的环境" class="headerlink" title="8.1.2 下半部的环境"></a>8.1.2 下半部的环境</h3><p><strong>BH</strong>：它提供了一个静态创建，由32个bottem harves组成的链表，上半部提供一个数来确定执行哪个，此机制在所有cpu上只能运行一个中断<br><strong>任务队列</strong>：内核定义了一组队列来挨个执行函数组成的链表，此机制用来代替BH<br><strong>软中断和tacklst</strong>：软中断是静态定义的32个下半部接口，可以在多个cpu上同时运行相同/不同的中断；不同类型的tacklst可在不同处理器上同时运行，相同类型就不可以</p>
+<h2 id="8-2-软中断"><a href="#8-2-软中断" class="headerlink" title="8.2 软中断"></a>8.2 软中断</h2><p>软中断在编译期间是静态分配<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhxshseu/p/5293979.html">https://www.cnblogs.com/zhxshseu/p/5293979.html</a> 的<br>软中断不会抢占软中断，它只能被<strong>中断处理程序抢占</strong>，最多有32个软中断<br><strong>触发软中断</strong>指软中断被标记后才能执行<br>在每个处理器上单独的地址空间运行中断，避免资源加锁<br><a target="_blank" rel="noopener" href="https://www.sohu.com/a/216557079_236714">https://www.sohu.com/a/216557079_236714</a></p>
+<h2 id="8-3-tacklst实现"><a href="#8-3-tacklst实现" class="headerlink" title="8.3 tacklst实现"></a>8.3 tacklst实现</h2><p>tacklst是用<strong>tasklst结构体</strong>实现，结构体被放在一个链表中，每个结构体都是一个tasklst，tacklst是动态分配，tacklst是用软中断实现的<br>4.<strong>ksoftirqd</strong>：当内核出现大量软中断时，cpu将被中断处理程序占满，ksoftirqd是用来处理这些大量软中断的。<br>如果内核忙于处理中断程序，用户就会陷入<strong>饥饿</strong>，反之内核陷入饥饿，ksoftirqd做一个折中：<strong>每个cpu上会有一个内核线程，在最低的优先级上运行，通过死循环保证只要有空闲的处理器就会处理软中断</strong><br><em><strong>内核饥饿</strong>：把自行触发的软中断放到下一次中断返回之后去处理，确保及时响应用户</em><br><em><strong>用户饥饿</strong>：软中断可能会在执行时重新触发自己使自己再次得到执行，立即处理会造成cpu负载过重</em></p>
+<h2 id="8-4-工作队列"><a href="#8-4-工作队列" class="headerlink" title="8.4 工作队列"></a>8.4 工作队列</h2><p>可以把工作推后，交给一个<strong>内核线程</strong>执行，这个下半部总会在进程上下文中执行，所以可以睡眠，所以需要睡眠的任务，就给工作队列，不需要睡眠的就给软中断/tacklst<br><strong>工作队列子系统</strong>可以创建一个内核线程接口，用来执行排队的线程，这些线程叫做<strong>工作者线程</strong>，一般由缺省的工作者线程来处理，处理器密集型任务会有自己的工作者线程，确保性能</p>
+<h3 id="工作队列的结构"><a href="#工作队列的结构" class="headerlink" title="工作队列的结构"></a>工作队列的结构</h3><p>所有工作者线程在一个<strong>workqueue_struct结构体</strong>中，结构体内有一个数组对应着很多处理器和很多工作者线程，每个工作者线程<strong>用cpu_workqueue_struct()<strong>表示，同时对应一个链表，每个链表节点有一个</strong>work_struct</strong>用<strong>死循环</strong>实现，链表都处理完时就休眠</p>
+<h2 id="8-5-下半部机制的选择"><a href="#8-5-下半部机制的选择" class="headerlink" title="8.5 下半部机制的选择"></a>8.5 下半部机制的选择</h2><p>1.软中断：需要采取一些步骤保证共享数据安全，如果完全使用单处理器变量，那么软中断就很好<br>2.tasklet：本质上就是用软中断实现的，实现起来更简单，不能并发运行，保证了资源安全，性能比软中断差一点<br>3.工作队列：如果需要睡眠，就用工作队列，此机制实现简单，开销也最大，因为涉及到上下文切换和内核线程</p>
+<h2 id="8-7-禁止下半部"><a href="#8-7-禁止下半部" class="headerlink" title="8.7 禁止下半部"></a>8.7 禁止下半部</h2><p>为了保护内存资源可能要先得到一个锁然后禁止下半部执行</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/8-%E4%B8%8B%E5%8D%8A%E9%83%A8%E5%92%8C%E6%8E%A8%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%B7%A5%E4%BD%9C/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2021/10/24/Linux/7-%E4%B8%AD%E6%96%AD%E5%92%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/">7.中断和中断处理</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-24 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/Linux/">Linux</a></span>
+      <p><h2 id="7-1-中断"><a href="#7-1-中断" class="headerlink" title="7.1 中断"></a>7.1 中断</h2><p>中断是一个由硬件产生的电信号，先通过<strong>中断线</strong>传给<strong>中断处理器</strong>，中断控制器收到此硬件的中断信号之后会通过地址总线存入一个该设备的编号，表示这次中断需要关注的设备，在由中断处理器传信号给<strong>cpu</strong>，然后cpu从地址总线取出设备编号，通过编号找到<strong>中断向量</strong>所包含的<strong>中断服务的入口地址</strong>，压入 <strong>PC 寄存器</strong>，然后内核陷入一个<strong>中断处理程序</strong>（<strong>ISR</strong>）来处理这个中断<br>不同的设备对应着不同的中断，不同的中断由叫<strong>中断请求线（IRQ）</strong>的值来唯一标识<br><strong>异常和中断的区别：</strong>当执行代码时出现特殊情况：如错误指令，时，cpu会产生一个异常，通知内核处理，而中断来自处理器外部，而异常是执行某指令的结果</p>
+<h2 id="7-2-中断处理程序"><a href="#7-2-中断处理程序" class="headerlink" title="7.2 中断处理程序"></a>7.2 中断处理程序</h2><p>程序通过特定代码去响应一个中断；<br><strong>设备驱动程序</strong>：一个设备的中断处理程序，是对设备管理的内核代码；<br>linux中断处理程序就是C代码，运行于中断上下文中（原子上下文），中断处理程序有时间限制，还要通知硬件是否收到信号</p>
+<h2 id="7-3上半部和下半部"><a href="#7-3上半部和下半部" class="headerlink" title="7.3上半部和下半部"></a>7.3上半部和下半部</h2><p><strong>上半部</strong>指很迫切需要执行的代码，需要立即执行且有时间限制<br><strong>下半部</strong>指允许稍后完成执行的代码<br><strong>网络硬件的例子：</strong>网卡传中断信号给cpu，中断上半部需要立即复制网络数据包到系统内存，然后把控制权交给中断之前的代码，然后下半部再挑时机对数据包处理后再交给协议栈或应用程序</p>
+<h2 id="7-4-注册中断处理程序"><a href="#7-4-注册中断处理程序" class="headerlink" title="7.4 注册中断处理程序"></a>7.4 注册中断处理程序</h2><p><strong>request_irq()<strong>函数注册一个中断处理程序：<br>1.<strong>irq</strong>参数表示要分配的中断号<br>2.<strong>hander</strong>是一个指向处理函数的指针<br>3.<strong>flags</strong>参数可以为0或以下标志的位掩码：<br>·</strong>IRQF_DISABLED</strong>此参数表示不能同时运行两个同cpu的中断处理程序<br>·<strong>IRQF_SAMPLE_RANDOM</strong>：来自设备中断的间隔时间会作为熵值填充到内核熵池<br>·<strong>IRQF_SHARED</strong>:在多个处理程序之间共享中断线<br>4.<strong>name</strong>与中断设备关联的文本表示<br>5.<strong>dev</strong>参数用于区分共享中短线上的诸多处理程序<br><strong>这个函数可能会睡眠，不能在不允许阻塞的函数中调用它</strong><br>**free_irq()**删除指定的中断处理程序，如它所在的中断线上只有一个程序，则禁用此中断线<br>内核接受到中断时，检查此中断线上的每个程序</p>
+<h2 id="7-6-中断上下文"><a href="#7-6-中断上下文" class="headerlink" title="7.6 中断上下文"></a>7.6 中断上下文</h2><p><strong>进程上下文：</strong>进程已执行过的字段/数据（存放在堆栈中），进程执行活动全过程的静态描述<br>中断上下文尽量节约时间和内存栈</p>
+<h2 id="7-9-中断控制"><a href="#7-9-中断控制" class="headerlink" title="7.9 中断控制"></a>7.9 中断控制</h2><p>可禁止/激活整个处理器上所有的中断函数，或只禁止某一条中断线</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/7-%E4%B8%AD%E6%96%AD%E5%92%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2021/10/24/Linux/5-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">5.系统调用</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-24 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/Linux/">Linux</a></span>
+      <p><h1 id=""><a href="#" class="headerlink" title=""></a></h1><pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> LR
+A<span class="token text string">[应用程序]</span><span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span><span class="token label property">调用</span><span class="token arrow operator">--></span></span>B<span class="token text string">[库函数]</span>
+B<span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span><span class="token label property">调用</span><span class="token arrow operator">--></span></span>C<span class="token text string">[系统调用]</span>
+C<span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span><span class="token label property">指挥</span><span class="token arrow operator">--></span></span>D<span class="token text string">[操作系统]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>POSIX</strong>是一套系统调用API规范，应用于LINUX，UNIX,macOS</p>
+<h2 id="5-3系统调用"><a href="#5-3系统调用" class="headerlink" title="5.3系统调用"></a>5.3系统调用</h2><p>系统调用会通过一个long类型返回值来表示成功或者错误，0为成功，负值是错误，错误码被保存在errno全局变量中。系统调用限定词为<strong>asmlinkage</strong>，为了兼容32位和64位，用户空间返回值为int，内核空间为long，另外系统调用和内核命名规则也不一样</p>
+<h3 id="5-3-1-系统调用号"><a href="#5-3-1-系统调用号" class="headerlink" title="5.3.1 系统调用号"></a>5.3.1 系统调用号</h3><p>每个系统调用都有一个系统调用号，此号不能轻易改变，删除一个号之后，用<strong>‘未实现系统调用函数’：sys_ni_syscall()<strong>填补空缺，该函数返回</strong>-ENOSYS</strong>，这些号被存在系统调用表里</p>
+<h2 id="系统调用处理程序"><a href="#系统调用处理程序" class="headerlink" title="系统调用处理程序"></a>系统调用处理程序</h2><p>用户空间函数不可直接访问内核空间，但可以间接通知内核，使内核陷入内核态，使用软中断：<strong>system_call()<strong>实现内核陷入。<br>系统调用把</strong>系统调用号</strong>和<strong>参数</strong>分别通过<strong>eax</strong>和其他五个寄存器传给内核</p>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TB
+A<span class="token text string">[用户空间函数]</span><span class="token arrow operator">--></span>B<span class="token text string">[系统调用]</span>
+B<span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span><span class="token label property">触发软中断</span><span class="token arrow operator">--></span></span>C<span class="token text string">[system_call函数检查系统调用号是否小于NR_syscalls值]</span>
+C<span class="token arrow operator">--></span>D<span class="token text string">[函数陷入内核空间检查参数权限合法性]</span>
+D<span class="token arrow operator">--></span>E<span class="token text string">[系统调用号和参数通过寄存器传入内核]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="参数验证"><a href="#参数验证" class="headerlink" title="参数验证"></a>参数验证</h3><p><strong>系统调用必须检查参数的合法性</strong>，不能传入访问不到的地址，比如：其他进程空间的，内核空间的，内存的只读只写。。。访问限制<br><strong>权限的合法性</strong>通过suser（）检查是否为超级用户，capable（）检查对资源操作的权能</p>
+<h2 id="系统调用上下文"><a href="#系统调用上下文" class="headerlink" title="系统调用上下文"></a>系统调用上下文</h2><h3 id="绑定系统调用"><a href="#绑定系统调用" class="headerlink" title="绑定系统调用"></a>绑定系统调用</h3><p>在entry.s文件里的调用表里添加一个表项，在**&lt;asm/unisted&gt;<strong>设置系统调用号，系统调用要被编译进内核映像</strong>kernel/**里</p>
+<h3 id="用户访问系统调用"><a href="#用户访问系统调用" class="headerlink" title="用户访问系统调用"></a>用户访问系统调用</h3><p>用户可通过一组linux宏访问系统调用，它会设置好寄存器并调用陷入指令,<br>宏的形式为：</p>
+<pre class="line-numbers language-#define" data-language="#define"><div class="caption"><span>NR_open   5</span></div><code class="language-#define">_syscall3(long, open, const char*,filename,int,flags,int,mode)
+第一二个参数对应着返回类型和系统调用名字<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</p>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/5-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2021/10/24/Linux/4-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/">4.进程调度</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-24 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/Linux/">Linux</a></span>
+      <p><h3 id="4-1多任务"><a href="#4-1多任务" class="headerlink" title="4.1多任务"></a>4.1多任务</h3><p>多任务操作系统：能并发执行多个进程<br> 抢占式：可以强制性挂起一个进程<br> 非抢占式：不可挂起</p>
+<h3 id="I-O消耗性和处理器消耗性的进程"><a href="#I-O消耗性和处理器消耗性的进程" class="headerlink" title="I/O消耗性和处理器消耗性的进程"></a>I/O消耗性和处理器消耗性的进程</h3><p> I/O消耗进程多数时间用来等待文件输入，运行时间很少，处理器消耗反之</p>
+<h2 id="4-2-linux-调度算法"><a href="#4-2-linux-调度算法" class="headerlink" title="4.2 linux 调度算法"></a>4.2 linux 调度算法</h2><p> linux调度器Schedule（）选择最优的拥有进程的调度类，调度类schedule（）再选择最优的进程运行，进程运行的时间取决于它被分配到的时间片的多少<br><strong>进程优先级</strong>：nice值来设置优先级（-20~19）默认是0，值越大优先级越低<br><strong>时间片</strong>：进程被强占前可运行时间<br><strong>CFS（公平调度）</strong>：大多数普通进程都用CFS策略调度，CFS没有时间片的概念，而是根据<strong>目标延迟值</strong>/进程的数量计算出处理器分配的份额，nice会成为处理器分配的权重，每个进程分配到的份额都相等，但<strong>处理器使用比</strong>也是<strong>可变的</strong>，当进程使用cpu的时间远小于被分配的份额时，另一些进程会抢占此进程，重新计算这个使用比；<br>这里有一个问题就是当进程无限多时，处理器使用比会趋于0，从而内核忙于调度，因此设置一个时间片底线（<strong>最小粒度</strong>）为<strong>1ms</strong></p>
+<h2 id="linux调度的实现"><a href="#linux调度的实现" class="headerlink" title="linux调度的实现"></a>linux调度的实现</h2><h3 id="4-5-1时间记账"><a href="#4-5-1时间记账" class="headerlink" title="4.5.1时间记账"></a>4.5.1时间记账</h3><p>每一个时钟节拍会使得时间片减少一个节拍周期，当节拍周期减到0时，它会被其他进程抢占<br>CFS里使用<strong>调度器实体结构</strong>来记账，它的实体结构被放在进程描述符里<br><strong>viruntine变量：</strong>虚拟运行时间，记录一个程序运行了多长时间，相关函数计算</p>
+<h3 id="4-5-2进程选择"><a href="#4-5-2进程选择" class="headerlink" title="4.5.2进程选择"></a>4.5.2进程选择</h3><p>挑选viruntine最小的进程作为最大优先级，CFS使用红黑树管理进程，最左叶子节点是最大优先级的进程，进程堵塞或终止时从红黑树删除，陷入等待时被标记成休眠状态，加入等待队列并设置成不可执行状态，再从红黑树中删除，事件发生时再改为可运行状态，再把它加入运行队列，再从等待队列删掉<br><strong>need_reached</strong>描述符表示是否需要重新调度</p>
+<h3 id="4-6-1-用户抢占"><a href="#4-6-1-用户抢占" class="headerlink" title="4.6.1 用户抢占"></a>4.6.1 用户抢占</h3><p>系统调用/中断处理程序要返回用户空间的时，会检查need_reached,如果设置了，就会重新调度</p>
+<h3 id="4-6-2-内核抢占"><a href="#4-6-2-内核抢占" class="headerlink" title="4.6.2 内核抢占"></a>4.6.2 内核抢占</h3><p>1.中断处理程序正在执行，且返回内核空间之前<br>2.内核代码再一次拥有可抢占性<br>3.内核任务显示（阻塞也会导致）调用schedule（）</p>
+<h2 id="实时调度策略"><a href="#实时调度策略" class="headerlink" title="实时调度策略"></a>实时调度策略</h2><p>就是比某进程优先级高的进程才可以抢占它<br><strong>SCHED_FIFO</strong>没有时间片，而<strong>SCHED_RR</strong>带有时间片<br><strong>软实时</strong>：进程时间片用完前可能被抢占<br><strong>硬实时</strong>：不会被抢占</p>
+<h2 id="4-8与调度相关的系统调用"><a href="#4-8与调度相关的系统调用" class="headerlink" title="4.8与调度相关的系统调用"></a>4.8与调度相关的系统调用</h2><h3 id="4-8-2处理器绑定"><a href="#4-8-2处理器绑定" class="headerlink" title="4.8.2处理器绑定"></a>4.8.2处理器绑定</h3><p>可以通过设置<strong>位掩码</strong>（保存在进程task_struct标志中）指定某进程只能在哪些cpu上运行，每一位标志着一个处理器，子进程继承了父进程的位掩码</p>
+<h3 id="4-8-3-放弃处理器时间"><a href="#4-8-3-放弃处理器时间" class="headerlink" title="4.8.3 放弃处理器时间"></a>4.8.3 放弃处理器时间</h3><p>sched_yield()系统调用可把某进程调为最小优先级，并放入过期队列，确保其一段时间不会被执行</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/4-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2021/10/24/Linux/3-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">3.进程管理</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-24 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/Linux/">Linux</a></span>
+      <p><h3 id="3-1-进程：处于执行期程序和相关资源的总称"><a href="#3-1-进程：处于执行期程序和相关资源的总称" class="headerlink" title="3.1 进程：处于执行期程序和相关资源的总称"></a>3.1 进程：处于执行期程序和相关资源的总称</h3><p>线程：私有：进程栈，程序计数器，进程寄存器<br>进程资源：打开的文件，挂起的信号，内核内部数据，处理器状态，内存地址空间，数据段<br>调用<strong>fork（）</strong>来创建子进程<br><strong>exee（）</strong>创建地址空间<br><strong>exit（）</strong>退出进程<br>父进程调用<strong>wait4（）</strong>查看子进程是否终结<br>陷入等待时，进程退出执行后被设置为僵死，直到父进程调用wait（），waitpid（）</p>
+<h2 id="进程描述符及任务结构"><a href="#进程描述符及任务结构" class="headerlink" title="进程描述符及任务结构"></a>进程描述符及任务结构</h2><p><strong>进程描述符task_struct</strong>结构体里的成员变量被用来描述进程信息，<strong>slab分配器</strong>用来分配task_struct，<strong>thread_info结构体</strong>内部有一个指向进程描述符的指针，它被存放在进程内核栈的底部，<strong>PID</strong>号唯一的标识了某个进程，PID最大值<em>实际上是内核中允许同时存在进程的总数</em>，最大值越小，转一圈就越快，且数值大的进程迟运行。<br><strong>current宏</strong>负责查找当前进程的描述符</p>
+<h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><p>1.<strong>TASK_RUNNING</strong> 运行：进程是可执行的<br>2.<strong>TASK_INTERRUOTIBLE</strong>可中断的：等待状态<br>3.<strong>TASK_UNINTERRUOTIBLE</strong>不可中断：等待状态，并不会被信号唤醒<br>4.<strong>TASK_TRACED</strong>被其他进程跟踪的进程<br>5.<strong>TASK_STOPPED</strong>停止执行</p>
+<h3 id="3-2-6-进程家族树"><a href="#3-2-6-进程家族树" class="headerlink" title="3.2.6 进程家族树"></a>3.2.6 进程家族树</h3><p>所有进程都是一个PID为1的<strong>init</strong>进程的后代，这个进程在内核启动最后被调用，用于初始化并启动相关进程，此进程的描述符<strong>init_task</strong>是静态分配的<br>遍历可执行双向链表可以遍历系统中所有进程</p>
+<h3 id="写时拷贝"><a href="#写时拷贝" class="headerlink" title="写时拷贝"></a>写时拷贝</h3><p>在创建子进程时，如果子进程不需要写入，就不必拷贝一份父进程资源<br><strong>fork（）</strong>：1.创建内核栈，描述符和描述符指针<br>2.检查子进程数量是否超过限制<br>3.把拷贝来的描述符里的某些值初始化<br>4.设置为不可中断态<br>5.设置进程PID<br>6.根据传递给clone（）的参数（资源权限描述），进行各种资源分配<br>vfork（）：不拷贝父进程页表项，只能读</p>
+<h2 id="3-4-进程在linux中的实现"><a href="#3-4-进程在linux中的实现" class="headerlink" title="3.4 进程在linux中的实现"></a>3.4 进程在linux中的实现</h2><p>linux内核把线程当作进程对待，线程没有什么私有资源的特别描述，只有共有资源的描述<br><strong>clone（）</strong>可加参数来设定创建子进程的需共享资源</p>
+<h3 id="内核线程"><a href="#内核线程" class="headerlink" title="内核线程"></a>内核线程</h3><p>在内核后台运行，跟用户空间没有交集，也没有被分配进程空间</p>
+<h2 id="3-5-进程终结"><a href="#3-5-进程终结" class="headerlink" title="3.5 进程终结"></a>3.5 进程终结</h2><p>终结时释放所有资源，并把其告诉父进程：记账信息，文件描述符，文件系统的引用计数，切换到新进程。。。<br>如果子进程正在执行时父进程退出了，它就会僵死在那里永远不会被释放，变成孤儿；为了防止，要给它和它的兄弟们找养父进程，如果它所在的线程组没有其他进程，就把它交给init进程；找到它的兄弟，只需遍历子进程链表；<br>init会调用wait（）清除所有的僵死进程；</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2021/10/24/Linux/3-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2021/10/24/java%E5%B9%B6%E5%8F%91/4-%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/">4.对象的组合</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-24 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></span>
+      <p><p>设计线程安全的类：</p>
 <ul>
 <li>找出构成对象状态的所有变量（变量组成对象状态的n元组）</li>
 <li>找出约束状态的不变性条件</li>
@@ -94,7 +266,120 @@
 <h4 id="收集同步需求"><a href="#收集同步需求" class="headerlink" title="收集同步需求"></a>收集同步需求</h4><p>确保线程的不变性不会在并发访问时被破坏，需要对状态进行判断。后验条件判断状态迁移是否有效，不变性条件判断状态是否有效，执行前也会有先验条件。</p>
 <h3 id="实例封闭"><a href="#实例封闭" class="headerlink" title="实例封闭"></a>实例封闭</h3><p>将数据封装在对象内部，可以将数据的访问限制在那个对象的方法上，从而确保数据访问时总能有正确的锁。<br>在Java平台的类库中还有很多线程封闭的示例，其中有些类的唯一用途就是将非线程安全的类转化为线程安全的类。一些基本的容器类例如ArrayList不是线程安全的，但类库提供了包装器工厂方法，<strong>例如Collections.synchronizedList及其类似方法，使得这些非线程安全的类可以在多线程环境中安全地使用。这些工厂方法通过”装饰器Decorator”模式将容器封装在一个同步的容器对象上，而包装器能将接口中的每个方法都实现为同步方法，并将调用请求转发到底层的容器对象上。只要包装器对象拥有对底层容器对象的唯一引用（即把底层容器对象封闭在包装器中），那么它就是线程安全的。在这引起方法的Javadoc中指出，对底层容器对象的所有访问必须通过包装器来进行。<br>封闭机制更易于构造线程安全的类，因为当封闭类的状态时，在分析类的线程安全性时就无须检查整个程序。</strong></p>
 <h3 id="监视器模式"><a href="#监视器模式" class="headerlink" title="监视器模式"></a>监视器模式</h3></p>
-      <div class="post-button"><a class="btn" href="/2021/10/22/My-new-Post/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2021/10/24/java%E5%B9%B6%E5%8F%91/4-%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2021/10/24/java%E5%B9%B6%E5%8F%91/3.%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/">3.对象的共享</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2021-10-24 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></span>
+      <p><p>同步可以确保以原子的方式实现操作,还可以确保内存可见性,即确保一个线程修改了对象状态后,另一个线程可以看见.</p>
+<p><strong>策略:</strong><br><strong>1.线程封闭</strong><br><strong>2.只读共享</strong><br><strong>3.线程安全共享</strong><br><strong>4.保护对象</strong></p>
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>即”内存可见性”,当共享变量在某个线程中变化时，其他线程在使用该共享变量前能得到变化后的值，仿佛这个变量的一动一静所有线程都能察觉一样.<br><strong>synchronized</strong> 块是能保证块中的共享变量的可见性的。首先它要求写该变量的时候进行同步。它是如何做到可见性的呢？当变量在同步块中改变后，<strong>在退出同步块时会迫使该变量马上把修改后的值告诉主内存，并且更新所有线程中的拷贝。</strong>这样就保证了变量的可见性。</p>
+<p>除了同步块，还有一种方式可使变量保持可见性：<strong>volatile</strong> 关键字。它的实现方式是迫使该关键字修饰的变量写之后马上更新到主内存，使用之前总会再从主内存中取最新值，通过这种貌似放弃线程私有拷贝的方式来保证可见性。</p>
+<h4 id="非原子的64位操作"><a href="#非原子的64位操作" class="headerlink" title="非原子的64位操作"></a>非原子的64位操作</h4><p>非volatile的long,double变量,JVM会在读写中把它分解为两个32位操作,如果读写操作在不同线程中执行,那么就可能读到某个值的高32位和低32位.</p>
+<h3 id="赋值操作的步骤"><a href="#赋值操作的步骤" class="headerlink" title="赋值操作的步骤"></a>赋值操作的步骤</h3><p>1.分配变量空间<br>2.引用指向变量<br>3.初始化<br>(在非volatile的情况,指令重排导致2,3可倒序)</p>
+<h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p>在一个多线程的应用中，线程在操作非volatile变量时，出于性能考虑，每个线程可能会将变量从主存拷贝到CPU缓存中。如果你的计算机有多个CPU，每个线程可能会在不同的CPU中运行。这意味着，每个线程都有可能会把变量拷贝到各自CPU的缓存中，意味着缓存和主存保存的变量可能不一样,,如下图所示：<br><img src="http://tutorials.jenkov.com/images/java-concurrency/java-volatile-1.png"></p>
+<h3 id="完整的volatile可见性保证"><a href="#完整的volatile可见性保证" class="headerlink" title="完整的volatile可见性保证"></a>完整的volatile可见性保证</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyClass</span> <span class="token punctuation">&#123;</span>
+<span class="token number">02</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> years<span class="token punctuation">;</span>
+<span class="token number">03</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> months
+<span class="token number">04</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> days<span class="token punctuation">;</span>
+<span class="token number">05</span>
+ 
+<span class="token number">06</span>
+ 
+<span class="token number">07</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token keyword">int</span> years<span class="token punctuation">,</span> <span class="token keyword">int</span> months<span class="token punctuation">,</span> <span class="token keyword">int</span> days<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+<span class="token number">08</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>years  <span class="token operator">=</span> years<span class="token punctuation">;</span>
+<span class="token number">09</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>months <span class="token operator">=</span> months<span class="token punctuation">;</span>
+<span class="token number">10</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>days   <span class="token operator">=</span> days<span class="token punctuation">;</span>
+<span class="token number">11</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token number">12</span>
+<span class="token punctuation">&#125;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>days变量写入主存时,前面两个也会被写入.<br><strong>读取volatile变量时，也同样会触发线程中所有变量从主存中重新读取。因此，应当尽量将volatile的写入操作放在最后，而将volatile的读取放在最前，这样就能连带将其他变量也进行刷新。</strong>(但是指令重排造成了例外)<br><strong>局限性</strong>:只确保了可见性,并未确保原子性,应使用synchronized保证读写变量是原子的.<br><strong>性能</strong>:读写volatile变量会导致变量从主存读写。从主存读写比从CPU缓存读写更加“昂贵”。访问一个volatile变量同样会禁止指令重排，而指令重排是一种提升性能的技术。因此，应当只在需要保证变量可见性的情况下，才使用volatile变量。</p>
+<h2 id="发布与逸出"><a href="#发布与逸出" class="headerlink" title="发布与逸出"></a>发布与逸出</h2><p>发布:对象能够在当前作用域之外的代码中被使用.<br>如果在对象构造完成之前就发布它,就会破坏线程安全性,如果不应该发布的对象被发布了,就被称为<strong>逸出</strong>.</p>
+<h2 id="线程封闭"><a href="#线程封闭" class="headerlink" title="线程封闭"></a>线程封闭</h2><p><strong>一种避免使用同步的方式就是不共享数据,仅在单线程中访问数据,就不存在同步.</strong><br>如JDBC中线程从连接池中获取一个connection对象,用完再还给连接池,这就隐含地把对象封闭再线程中.</p>
+<h3 id="栈封闭"><a href="#栈封闭" class="headerlink" title="栈封闭"></a>栈封闭</h3><p>**”栈”**是指java虚拟机栈,或者说是虚拟机栈中局部变量表部分。首先Java虚拟机栈是私有的，它的生命周期和线程相同。Java虚拟机栈描述的Java方法执行的内存模型：每个方法在执行时都会创建一个“栈帧”，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用直至执行完成的过程，就对应这个一个栈帧在虚拟机中入栈到出栈的过程。</p>
+<pre><code>为什么局部变量是线程安全的呢？因为局部变量存放在虚拟机栈中，而虚拟机栈是线程私有的，既然线程不共享，所以它是线程安全的。封闭栈的线程安全性体现在Java虚拟机的内存特性。
+</code></pre>
+<h3 id="ThreadLocal类"><a href="#ThreadLocal类" class="headerlink" title="ThreadLocal类"></a>ThreadLocal类</h3><p>当多线程应用程序在没有协同的情况下使用全局变量时，就不是线程安全的，通过将对象保存到ThreadLocal中，每个线程都会拥有属于自己的对象。</p>
+<p>ThreadLocal内部维护了一个<strong>Map</strong>，Map的key是每个线程的名称，而Map的值就是我们要封闭的对象。每个线程中的对象都对应着Map中一个值，也就是ThreadLocal利用Map实现了对象的线程封闭。**ThreadLOcal<T> 包含了Map&lt;Thread,T&gt;对象.</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/** 线程封闭示例 */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo7</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">/** threadLocal变量，每个线程都有一个副本，互不干扰 */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">ThreadLocal</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> value <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadLocal</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+    <span class="token comment">/**
+     * threadlocal测试
+     *
+     * @throws Exception
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">threadLocalTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+ 
+        <span class="token comment">// threadlocal线程封闭示例</span>
+        value<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"这是主线程设置的123"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 主线程设置值</span>
+        <span class="token class-name">String</span> v <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程1执行之前，主线程取到的值："</span> <span class="token operator">+</span> v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token class-name">String</span> v <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程1取到的值："</span> <span class="token operator">+</span> v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">// 设置 threadLocal</span>
+                value<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"这是线程1设置的456"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+                v <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"重新设置之后，线程1取到的值："</span> <span class="token operator">+</span> v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程1执行结束"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">5000L</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 等待所有线程执行结束</span>
+        v <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程1执行之后，主线程取到的值："</span> <span class="token operator">+</span> v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+    <span class="token punctuation">&#125;</span>
+ 
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">new</span> <span class="token class-name">Demo7</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">threadLocalTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+# 结果
+线程<span class="token number">1</span>执行之前，主线程取到的值：这是主线程设置的<span class="token number">123</span>
+线程<span class="token number">1</span>取到的值：<span class="token keyword">null</span>
+重新设置之后，线程<span class="token number">1</span>取到的值：这是线程<span class="token number">1</span>设置的<span class="token number">456</span>
+线程<span class="token number">1</span>执行结束
+线程<span class="token number">1</span>执行之后，主线程取到的值：这是主线程设置的<span class="token number">123</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>说明主线程和子线程中的执行结果互不干扰.</p>
+<h3 id="不变性"><a href="#不变性" class="headerlink" title="不变性"></a>不变性</h3><p>用不可变对象来满足同步需求,它永远是安全的<br>不可变三个条件:</p>
+<ul>
+<li>创建以后状态不变</li>
+<li>所有域都是final类型</li>
+<li>正确创建的(没有this引用逸出)</li>
+</ul>
+<h2 id="安全发布"><a href="#安全发布" class="headerlink" title="安全发布"></a>安全发布</h2><p>错误的发布对象：</p>
+<p>私有成员变量在对象的公有方法中被修改。当其他线程访问该私有变量时可能得到不正确的值。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/MyySophia/article/details/104784202">https://blog.csdn.net/MyySophia/article/details/104784202</a></p>
+<h3 id="安全发布的常用模式"><a href="#安全发布的常用模式" class="headerlink" title="安全发布的常用模式"></a>安全发布的常用模式</h3><ul>
+<li>静态初始化函数中初始化一个对象的引用</li>
+<li>对象的引用保存到一个voliate类型的域或者AtomicReferance对象中</li>
+<li>保存到某个正确构造对象的final域</li>
+<li>保存到某个由锁保护的域</li>
+</ul>
+<p>事实不可变对象:从技术上来看可变,但发布后不会改变,视为不可变对象即可,要通过安全方式发布<br>可变对象:必须通过安全方式来发布,并且一定要是线程安全且由锁保护</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2021/10/24/java%E5%B9%B6%E5%8F%91/3.%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
 
@@ -136,7 +421,10 @@
   <ul class="menu-items">
     <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
     <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
-    
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-th-list fa-fw"></i>分类</span>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></li></ul>
+    </li>
     <li class="has-sub"><span class="dropdown-heading">
       <i class="fa fa-bookmark fa-fw"></i>页面</span>
         <ul>
@@ -183,6 +471,7 @@
 	});
 }());
 </script>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/js/local.search.min.js"></script>
 
 
 </body>

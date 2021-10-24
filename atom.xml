@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-10-22T10:51:35.105Z</updated>
+  <updated>2021-10-24T07:08:28.094Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,22 +17,239 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>My new Post</title>
-    <link href="http://example.com/2021/10/22/My-new-Post/"/>
-    <id>http://example.com/2021/10/22/My-new-Post/</id>
-    <published>2021-10-22T10:44:23.000Z</published>
-    <updated>2021-10-22T10:51:35.105Z</updated>
+    <title>11.定时器和时间管理</title>
+    <link href="http://example.com/2021/10/24/Linux/11-%E5%AE%9A%E6%97%B6%E5%99%A8%E5%92%8C%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/"/>
+    <id>http://example.com/2021/10/24/Linux/11-%E5%AE%9A%E6%97%B6%E5%99%A8%E5%92%8C%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/</id>
+    <published>2021-10-24T07:01:45.000Z</published>
+    <updated>2021-10-24T07:08:28.094Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;4-对象的组合&quot;&gt;&lt;a href=&quot;#4-对象的组合&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;内核中的时间概念&quot;&gt;&lt;a href=&quot;#内核中的时间概念&quot; class=&quot;headerlink&quot;</summary>
         
       
     
     
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>10.内核同步方法</title>
+    <link href="http://example.com/2021/10/24/Linux/10-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95/"/>
+    <id>http://example.com/2021/10/24/Linux/10-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95/</id>
+    <published>2021-10-24T07:01:22.000Z</published>
+    <updated>2021-10-24T07:08:03.137Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;原子整数操作&quot;&gt;&lt;a href=&quot;#原子整数操作&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>9.内核同步介绍</title>
+    <link href="http://example.com/2021/10/24/Linux/9-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://example.com/2021/10/24/Linux/9-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E4%BB%8B%E7%BB%8D/</id>
+    <published>2021-10-24T07:01:06.000Z</published>
+    <updated>2021-10-24T07:07:43.657Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;临界区和竞争条件&quot;&gt;&lt;a href=&quot;#临界区和竞争条件&quot; class=&quot;headerlink&quot; title=&quot;临界区和竞争条件&quot;&gt;&lt;/a&gt;临界区和竞争条件&lt;/h2&gt;&lt;p&gt;临界区就是共享数据的代码段，访问临界区时代码不可被打断。&lt;/p&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>8.下半部和推后执行的工作</title>
+    <link href="http://example.com/2021/10/24/Linux/8-%E4%B8%8B%E5%8D%8A%E9%83%A8%E5%92%8C%E6%8E%A8%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%B7%A5%E4%BD%9C/"/>
+    <id>http://example.com/2021/10/24/Linux/8-%E4%B8%8B%E5%8D%8A%E9%83%A8%E5%92%8C%E6%8E%A8%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%B7%A5%E4%BD%9C/</id>
+    <published>2021-10-24T07:00:46.000Z</published>
+    <updated>2021-10-24T07:07:20.607Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;下半部机制&lt;/strong&gt;：内核中所有将工作推迟的机制都叫下半部机制&lt;br&gt;1.中断处理程序以&lt;strong&gt;异步&lt;/strong&gt;方式执行，并可能打断其他代码&lt;br&gt;2.不能消耗太长时间&lt;br&gt;3.中断处理不在进程上下文中运行，所以不能阻塞&lt;br&gt;所以一</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>7.中断和中断处理</title>
+    <link href="http://example.com/2021/10/24/Linux/7-%E4%B8%AD%E6%96%AD%E5%92%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/"/>
+    <id>http://example.com/2021/10/24/Linux/7-%E4%B8%AD%E6%96%AD%E5%92%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86/</id>
+    <published>2021-10-24T07:00:24.000Z</published>
+    <updated>2021-10-24T07:07:02.224Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;7-1-中断&quot;&gt;&lt;a href=&quot;#7-1-中断&quot; class=&quot;headerlink&quot; title=&quot;7.1 中断&quot;&gt;&lt;/a&gt;7.1</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>5.系统调用</title>
+    <link href="http://example.com/2021/10/24/Linux/5-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"/>
+    <id>http://example.com/2021/10/24/Linux/5-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/</id>
+    <published>2021-10-24T06:59:48.000Z</published>
+    <updated>2021-10-24T07:06:38.038Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;/h1&gt;&lt;pre class=&quot;line-numbers language-mermaid&quot; data-language=&quot;mermaid&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>4.进程调度</title>
+    <link href="http://example.com/2021/10/24/Linux/4-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/"/>
+    <id>http://example.com/2021/10/24/Linux/4-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/</id>
+    <published>2021-10-24T06:59:30.000Z</published>
+    <updated>2021-10-24T07:06:06.136Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;4-1多任务&quot;&gt;&lt;a href=&quot;#4-1多任务&quot; class=&quot;headerlink&quot; title=&quot;4.1多任务&quot;&gt;&lt;/a&gt;4.1多任务&lt;/h3&gt;&lt;p&gt;多任务操作系统：能并发执行多个进程&lt;br&gt; 抢占式：可以强制性挂起一个进程&lt;br&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>3.进程管理</title>
+    <link href="http://example.com/2021/10/24/Linux/3-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
+    <id>http://example.com/2021/10/24/Linux/3-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/</id>
+    <published>2021-10-24T06:58:50.000Z</published>
+    <updated>2021-10-24T07:03:37.821Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;3-1-进程：处于执行期程序和相关资源的总称&quot;&gt;&lt;a href=&quot;#3-1-进程：处于执行期程序和相关资源的总称&quot; class=&quot;headerlink&quot; title=&quot;3.1 进程：处于执行期程序和相关资源的总称&quot;&gt;&lt;/a&gt;3.1</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>4.对象的组合</title>
+    <link href="http://example.com/2021/10/24/java%E5%B9%B6%E5%8F%91/4-%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/"/>
+    <id>http://example.com/2021/10/24/java%E5%B9%B6%E5%8F%91/4-%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/</id>
+    <published>2021-10-24T06:54:15.000Z</published>
+    <updated>2021-10-24T06:54:54.957Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;设计线程安全的类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;找出构成对象状态的所有变量（变量组成对象状态的n元组）&lt;/li&gt;
+&lt;li&gt;找出约束状态的不变性条件&lt;/li&gt;
+&lt;li&gt;建立对象状态的并发管理策略&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;收集同步需求&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="java并发编程" scheme="http://example.com/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>3.对象的共享</title>
+    <link href="http://example.com/2021/10/24/java%E5%B9%B6%E5%8F%91/3.%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/"/>
+    <id>http://example.com/2021/10/24/java%E5%B9%B6%E5%8F%91/3.%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/</id>
+    <published>2021-10-24T04:55:54.000Z</published>
+    <updated>2021-10-24T06:48:10.957Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;同步可以确保以原子的方式实现操作,还可以确保内存可见性,即确保一个线程修改了对象状态后,另一个线程可以看见.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;策略:&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;1.线程封闭&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;2.只读共享&lt;/strong&gt;&lt;</summary>
+        
+      
+    
+    
+    
+    <category term="java并发编程" scheme="http://example.com/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
     
   </entry>

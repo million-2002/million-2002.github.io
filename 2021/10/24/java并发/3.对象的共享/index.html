@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>3.对象的共享 | Million&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Million">
+  <meta name="keywords" content="">
+  <meta name="description" content="一个菜鸟的博客">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'hexo-theme-lx',
+    version: '0.4.0',
+    localsearch:{
+      "enable": true,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": false,
+      "preload": false
+      },
+    path: 'search.xml'
+  };
+</script>
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "greenish",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Million's Blog" type="application/atom+xml">
+</head>
+<body>
+<div class="single">
+<a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i></a>
+<div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Search..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+<div id="page">
+<div id="lx-aside" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
+  <div class="overlay">
+  <div class="page-title">
+    <div class="avatar"><a href="/"><img src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/avatar.min.jpeg"></a></div>
+    <span>2021-10-24</span>
+    <h2>3.对象的共享</h2>
+    
+    <div class="social-links">
+    <a href="https://github.com/million-2002" target="_blank"><i class="fa fa-github fa-fw"></i></a>
+</div></div>
+</div>
+</div>
+
+<div id="lx-main-content">
+  <div class="lx-post">
+    <div class="lx-entry padding">
+      <div>
+        <p>同步可以确保以原子的方式实现操作,还可以确保内存可见性,即确保一个线程修改了对象状态后,另一个线程可以看见.</p>
+<p><strong>策略:</strong><br><strong>1.线程封闭</strong><br><strong>2.只读共享</strong><br><strong>3.线程安全共享</strong><br><strong>4.保护对象</strong></p>
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>即”内存可见性”,当共享变量在某个线程中变化时，其他线程在使用该共享变量前能得到变化后的值，仿佛这个变量的一动一静所有线程都能察觉一样.<br><strong>synchronized</strong> 块是能保证块中的共享变量的可见性的。首先它要求写该变量的时候进行同步。它是如何做到可见性的呢？当变量在同步块中改变后，<strong>在退出同步块时会迫使该变量马上把修改后的值告诉主内存，并且更新所有线程中的拷贝。</strong>这样就保证了变量的可见性。</p>
+<p>除了同步块，还有一种方式可使变量保持可见性：<strong>volatile</strong> 关键字。它的实现方式是迫使该关键字修饰的变量写之后马上更新到主内存，使用之前总会再从主内存中取最新值，通过这种貌似放弃线程私有拷贝的方式来保证可见性。</p>
+<h4 id="非原子的64位操作"><a href="#非原子的64位操作" class="headerlink" title="非原子的64位操作"></a>非原子的64位操作</h4><p>非volatile的long,double变量,JVM会在读写中把它分解为两个32位操作,如果读写操作在不同线程中执行,那么就可能读到某个值的高32位和低32位.</p>
+<h3 id="赋值操作的步骤"><a href="#赋值操作的步骤" class="headerlink" title="赋值操作的步骤"></a>赋值操作的步骤</h3><p>1.分配变量空间<br>2.引用指向变量<br>3.初始化<br>(在非volatile的情况,指令重排导致2,3可倒序)</p>
+<h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p>在一个多线程的应用中，线程在操作非volatile变量时，出于性能考虑，每个线程可能会将变量从主存拷贝到CPU缓存中。如果你的计算机有多个CPU，每个线程可能会在不同的CPU中运行。这意味着，每个线程都有可能会把变量拷贝到各自CPU的缓存中，意味着缓存和主存保存的变量可能不一样,,如下图所示：<br><img src="http://tutorials.jenkov.com/images/java-concurrency/java-volatile-1.png"></p>
+<h3 id="完整的volatile可见性保证"><a href="#完整的volatile可见性保证" class="headerlink" title="完整的volatile可见性保证"></a>完整的volatile可见性保证</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyClass</span> <span class="token punctuation">&#123;</span>
+<span class="token number">02</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> years<span class="token punctuation">;</span>
+<span class="token number">03</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> months
+<span class="token number">04</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> days<span class="token punctuation">;</span>
+<span class="token number">05</span>
+ 
+<span class="token number">06</span>
+ 
+<span class="token number">07</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token keyword">int</span> years<span class="token punctuation">,</span> <span class="token keyword">int</span> months<span class="token punctuation">,</span> <span class="token keyword">int</span> days<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+<span class="token number">08</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>years  <span class="token operator">=</span> years<span class="token punctuation">;</span>
+<span class="token number">09</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>months <span class="token operator">=</span> months<span class="token punctuation">;</span>
+<span class="token number">10</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>days   <span class="token operator">=</span> days<span class="token punctuation">;</span>
+<span class="token number">11</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token number">12</span>
+<span class="token punctuation">&#125;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>days变量写入主存时,前面两个也会被写入.<br><strong>读取volatile变量时，也同样会触发线程中所有变量从主存中重新读取。因此，应当尽量将volatile的写入操作放在最后，而将volatile的读取放在最前，这样就能连带将其他变量也进行刷新。</strong>(但是指令重排造成了例外)<br><strong>局限性</strong>:只确保了可见性,并未确保原子性,应使用synchronized保证读写变量是原子的.<br><strong>性能</strong>:读写volatile变量会导致变量从主存读写。从主存读写比从CPU缓存读写更加“昂贵”。访问一个volatile变量同样会禁止指令重排，而指令重排是一种提升性能的技术。因此，应当只在需要保证变量可见性的情况下，才使用volatile变量。</p>
+<h2 id="发布与逸出"><a href="#发布与逸出" class="headerlink" title="发布与逸出"></a>发布与逸出</h2><p>发布:对象能够在当前作用域之外的代码中被使用.<br>如果在对象构造完成之前就发布它,就会破坏线程安全性,如果不应该发布的对象被发布了,就被称为<strong>逸出</strong>.</p>
+<h2 id="线程封闭"><a href="#线程封闭" class="headerlink" title="线程封闭"></a>线程封闭</h2><p><strong>一种避免使用同步的方式就是不共享数据,仅在单线程中访问数据,就不存在同步.</strong><br>如JDBC中线程从连接池中获取一个connection对象,用完再还给连接池,这就隐含地把对象封闭再线程中.</p>
+<h3 id="栈封闭"><a href="#栈封闭" class="headerlink" title="栈封闭"></a>栈封闭</h3><p>**”栈”**是指java虚拟机栈,或者说是虚拟机栈中局部变量表部分。首先Java虚拟机栈是私有的，它的生命周期和线程相同。Java虚拟机栈描述的Java方法执行的内存模型：每个方法在执行时都会创建一个“栈帧”，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用直至执行完成的过程，就对应这个一个栈帧在虚拟机中入栈到出栈的过程。</p>
+<pre><code>为什么局部变量是线程安全的呢？因为局部变量存放在虚拟机栈中，而虚拟机栈是线程私有的，既然线程不共享，所以它是线程安全的。封闭栈的线程安全性体现在Java虚拟机的内存特性。
+</code></pre>
+<h3 id="ThreadLocal类"><a href="#ThreadLocal类" class="headerlink" title="ThreadLocal类"></a>ThreadLocal类</h3><p>当多线程应用程序在没有协同的情况下使用全局变量时，就不是线程安全的，通过将对象保存到ThreadLocal中，每个线程都会拥有属于自己的对象。</p>
+<p>ThreadLocal内部维护了一个<strong>Map</strong>，Map的key是每个线程的名称，而Map的值就是我们要封闭的对象。每个线程中的对象都对应着Map中一个值，也就是ThreadLocal利用Map实现了对象的线程封闭。**ThreadLOcal<T> 包含了Map&lt;Thread,T&gt;对象.</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/** 线程封闭示例 */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo7</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">/** threadLocal变量，每个线程都有一个副本，互不干扰 */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">ThreadLocal</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> value <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadLocal</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+    <span class="token comment">/**
+     * threadlocal测试
+     *
+     * @throws Exception
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">threadLocalTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+ 
+        <span class="token comment">// threadlocal线程封闭示例</span>
+        value<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"这是主线程设置的123"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 主线程设置值</span>
+        <span class="token class-name">String</span> v <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程1执行之前，主线程取到的值："</span> <span class="token operator">+</span> v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token class-name">String</span> v <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程1取到的值："</span> <span class="token operator">+</span> v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">// 设置 threadLocal</span>
+                value<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"这是线程1设置的456"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+                v <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"重新设置之后，线程1取到的值："</span> <span class="token operator">+</span> v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程1执行结束"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">5000L</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 等待所有线程执行结束</span>
+        v <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程1执行之后，主线程取到的值："</span> <span class="token operator">+</span> v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+    <span class="token punctuation">&#125;</span>
+ 
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">new</span> <span class="token class-name">Demo7</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">threadLocalTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+# 结果
+线程<span class="token number">1</span>执行之前，主线程取到的值：这是主线程设置的<span class="token number">123</span>
+线程<span class="token number">1</span>取到的值：<span class="token keyword">null</span>
+重新设置之后，线程<span class="token number">1</span>取到的值：这是线程<span class="token number">1</span>设置的<span class="token number">456</span>
+线程<span class="token number">1</span>执行结束
+线程<span class="token number">1</span>执行之后，主线程取到的值：这是主线程设置的<span class="token number">123</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>说明主线程和子线程中的执行结果互不干扰.</p>
+<h3 id="不变性"><a href="#不变性" class="headerlink" title="不变性"></a>不变性</h3><p>用不可变对象来满足同步需求,它永远是安全的<br>不可变三个条件:</p>
+<ul>
+<li>创建以后状态不变</li>
+<li>所有域都是final类型</li>
+<li>正确创建的(没有this引用逸出)</li>
+</ul>
+<h2 id="安全发布"><a href="#安全发布" class="headerlink" title="安全发布"></a>安全发布</h2><p>错误的发布对象：</p>
+<p>私有成员变量在对象的公有方法中被修改。当其他线程访问该私有变量时可能得到不正确的值。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/MyySophia/article/details/104784202">https://blog.csdn.net/MyySophia/article/details/104784202</a></p>
+<h3 id="安全发布的常用模式"><a href="#安全发布的常用模式" class="headerlink" title="安全发布的常用模式"></a>安全发布的常用模式</h3><ul>
+<li>静态初始化函数中初始化一个对象的引用</li>
+<li>对象的引用保存到一个voliate类型的域或者AtomicReferance对象中</li>
+<li>保存到某个正确构造对象的final域</li>
+<li>保存到某个由锁保护的域</li>
+</ul>
+<p>事实不可变对象:从技术上来看可变,但发布后不会改变,视为不可变对象即可,要通过安全方式发布<br>可变对象:必须通过安全方式来发布,并且一定要是线程安全且由锁保护</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lx-navigation">
+	<div class="lx-cover prev lx-cover-sm" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/footer-l.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2021/10/24/java%E5%B9%B6%E5%8F%91/4-%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Next</span>
+						<h3>4.对象的组合</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+        <div class="lx-cover next lx-cover-sm" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/footer-r.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="#">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Prev</span>
+						<h3>没有更早的文章</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</div>
+<div class="comment"><div id="comments"></div></div>
+<footer>
+  <div>
+  Copyright &copy; 2021.<a href="/">Million's Blog</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button> 
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/images/avatar.min.jpeg" alt="Million"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>Million</p>
+          <span class="tagline">Hello, World!</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-th-list fa-fw"></i>分类</span>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></li></ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>页面</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>友链</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        </ul>
+    </li>
+  </ul>
+  </nav>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.0/source/dist/js/local.search.min.js"></script>
+
+
+</body>
+</html>
